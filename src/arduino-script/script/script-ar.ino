@@ -27,12 +27,14 @@ Ultrasonic sensor2(sensor2_trigger, sensor2_echo);
 DHT dht(DHTPIN, DHTTYPE);
 
 int pessoas = 0;
+char buff[50];
+char umichar[5];
 
 void setup() {
   Serial.begin(9600);
   Serial.println("Lendo dados do sensor");
   dht.begin();
-  
+
   }
 
 
@@ -41,12 +43,18 @@ void loop() {
   float dist2 = sensor2.read(CM);
   float h = dht.readHumidity();
   int i;
-
+/*
   Serial.print("\nDistancia s1 em cm: "); Serial.print(dist1);
   Serial.print("  Distancia s2 em cm: "); Serial.print(dist2);
   Serial.print("  Pessoas: "); Serial.print(pessoas);
   Serial.print("  Umidade: "); Serial.print(h);
-  
+
+  */
+  dtostrf(h, 3, 1, umichar);
+  sprintf(buff, "umidade: %s, pessoas: %d", umichar, pessoas);
+  Serial.println(buff);
+
+
   /*Para sensor 1 acionado*/
   if (dist1 <= H){
     Serial.print("\nPessoa entrou... ");
@@ -55,7 +63,7 @@ void loop() {
         dist2 = sensor2.read(CM);
         if(dist2 <= H){
           pessoas++;
-          Serial.print("  Confirmado!");
+          Serial.print("\nConfirmado!\n");
           i = i + T*1000;
           delay(1000/C);
           dist2 = sensor2.read(CM);
@@ -68,22 +76,28 @@ void loop() {
 
   /*Para sensor 2 acionado*/
   if (dist2 <= H){
-    Serial.print("\nPessoa saiu... ");
-    i = 0;
-    while(i < T*1000){
-        dist1 = sensor1.read(CM);
-        if(dist1 <= H){
-          pessoas--;
-          Serial.print("  Confirmado!");
-          i = i + T*1000;
+
+    if (pessoas == 0){
+      pessoas = 0;
+    }
+    else{
+      Serial.print("\nPessoa saiu... ");
+      i = 0;
+      while(i < T*1000){
           dist1 = sensor1.read(CM);
-          delay(1000/C);
-        }else{
-          i = i + 1000/C;
-          delay(1000/C);
-        }
-    } 
+          if(dist1 <= H){
+            pessoas--;
+            Serial.print("\nConfirmado!\n");
+            i = i + T*1000;
+            dist1 = sensor1.read(CM);
+            delay(1000/C);
+          }
+          else{
+            i = i + 1000/C;
+            delay(1000/C);
+          }
+      }
+    }
   }
-  
   delay(1000/C);
 }
