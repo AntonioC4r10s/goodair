@@ -1,7 +1,7 @@
 import numpy as np
 import skfuzzy as fuzz
 import matplotlib.pyplot as plt
-
+from time import sleep
 
 def gera_fuzzy(valor_umidade, valor_pessoas):
     #  Universo de variaveis.
@@ -50,7 +50,3 @@ def gera_fuzzy(valor_umidade, valor_pessoas):
 #    tip_activation = fuzz.interp_membership(x_umidificador, aggregated, tip)  # for plot
 
     print(tip)
-
-
-gera_fuzzy(1,73.0)
-

@@ -32,7 +32,7 @@ char umichar[5];
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Lendo dados do sensor");
+  //Serial.println("Lendo dados do sensor");
   dht.begin();
 
   }
@@ -57,13 +57,13 @@ void loop() {
 
   /*Para sensor 1 acionado*/
   if (dist1 <= H){
-    Serial.print("\nPessoa entrou... ");
+    //Serial.print("\nPessoa entrou... ");
     i = 0;
     while(i < T*1000){
         dist2 = sensor2.read(CM);
         if(dist2 <= H){
           pessoas++;
-          Serial.print("\nConfirmado!\n");
+      //    Serial.print("\nConfirmado!\n");
           i = i + T*1000;
           delay(1000/C);
           dist2 = sensor2.read(CM);
@@ -81,13 +81,13 @@ void loop() {
       pessoas = 0;
     }
     else{
-      Serial.print("\nPessoa saiu... ");
+     // Serial.print("\nPessoa saiu... ");
       i = 0;
       while(i < T*1000){
           dist1 = sensor1.read(CM);
           if(dist1 <= H){
             pessoas--;
-            Serial.print("\nConfirmado!\n");
+       //     Serial.print("\nConfirmado!\n");
             i = i + T*1000;
             dist1 = sensor1.read(CM);
             delay(1000/C);
