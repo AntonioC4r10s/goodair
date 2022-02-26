@@ -18,6 +18,7 @@ nome_arq = "saida"+time.strftime("%X")
 v_pessoas = []
 v_umidade = []
 v_resposta = []
+v_temperatura = []
 
 while True:
     msg = str(arduino.readline())
@@ -27,11 +28,13 @@ while True:
 
     umidade = float(msg_data[1])
     pessoas = int(msg_data[3])
+    temperatura = float(msg_data[5])
 
     v_umidade.append(umidade)
     v_pessoas.append(pessoas)
     v_resposta.append(gera_fuzzy(umidade, pessoas))
+    v_temperatura.append(temperatura)
 
-    grava_dados(v_pessoas, v_umidade, v_resposta, nome_arq)
+    grava_dados(v_pessoas, v_umidade, v_temperatura,v_resposta, nome_arq)
     arduino.flush()
 

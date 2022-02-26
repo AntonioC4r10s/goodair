@@ -1,11 +1,12 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
-def grava_dados(v_pessoas, v_umidade, v_resposta, arq):
+def grava_dados(v_pessoas, v_umidade, v_temperatura,v_resposta, arq):
 
     datas = {
         'pessoas': v_pessoas,
         'umidade': v_umidade,
+        'temperatura': v_temperatura,
         'resposta': v_resposta
     }
 
@@ -32,4 +33,4 @@ def gera_grafico(arq):
 
     plt.show()
 
-gera_grafico("/home/antonio/PycharmProjects/goodair/src/save/saida17:22:19.csv")
+#gera_grafico("/home/antonio/PycharmProjects/goodair/src/save/saida13:26:35.csv")
