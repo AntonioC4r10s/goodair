@@ -17,20 +17,25 @@ def grava_dados(v_pessoas, v_umidade, v_temperatura,v_resposta, arq):
 def gera_grafico(arq):
     df = pd.read_csv(arq)
 
-    fig, (ax0, ax1 ,ax2) = plt.subplots(3)
+    fig, axs = plt.subplots(2, 2)
 
-    ax0.plot(df['entrada'], df['pessoas'], label='pessoas')
-    ax0.set_title("Número de pessoas")
-    ax0.legend()
+    axs[0, 0].plot(df['entrada'], df['pessoas'], label='pessoas')
+    axs[0, 0].set_title("Número de pessoas")
+    axs[0, 0].legend()
 
-    ax1.plot(df['entrada'], df['umidade'], label='umidade')
-    ax1.set_title("Umidade relativa do ar")
-    ax1.legend()
+    axs[0, 1].plot(df['entrada'], df['umidade'], label='umidade')
+    axs[0, 1].set_title("Umidade relativa do ar")
+    axs[0, 1].legend()
 
-    ax2.plot(df['entrada'], df['resposta'], label='resposta')
-    ax2.set_title("Resposta fuzzy")
-    ax2.legend()
+    axs[1, 0].plot(df['entrada'], df['temperatura'], label='temperatura')
+    axs[1, 0].set_title("Temperatura")
+    axs[1, 0].legend()
 
-    plt.show()
+    axs[1, 1].plot(df['entrada'], df['resposta'], label='resposta')
+    axs[1, 1].set_title("Resposta fuzzy")
+    axs[1, 1].legend()
+
+#    plt.show()
+    return fig
 
 #gera_grafico("/home/antonio/PycharmProjects/goodair/src/save/saida13:26:35.csv")
