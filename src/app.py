@@ -1,3 +1,4 @@
+import dados
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -7,11 +8,16 @@ from tkinter import Tk, Frame, Button, Label, ttk, Canvas
 import random
 import re
 import serial
+import lfuzzy
 
 CONNECTED = False
 PAUSE = False
 START = False
 ARDUINO = ""
+PESSOAS = 0
+NOME_ARQ = "saida" + time.strftime('%Y_%m_%d_%H_%M_%S')
+print(NOME_ARQ)
+dados.grava_dados_2('entrada,pessoas,umidade,temperatura,resposta', NOME_ARQ)
 
 fig, axs = plt.subplots(2, 2, facecolor='#B0E0E6')
 
@@ -43,7 +49,7 @@ def conectar():
     try:
         global ARDUINO
         ARDUINO = serial.Serial('COM3', 9600)
-        #print("Arduino connected!")
+        # print("Arduino connected!")
         janela.title("GoodAir - Connected")
         name = "saida_" + time.strftime("%Y_%m_%d_%H_%M")
         global CONNECTED
@@ -62,24 +68,43 @@ def start():
 
 
 def pause():
-    #ani.event_source.stop()
+    # ani.event_source.stop()
     print("pause")
     global PAUSE
     PAUSE = True
 
 
 def continuar():
-    #ani.event_source.start()
+    # ani.event_source.start()
     global PAUSE
     PAUSE = False
+
 
 def close():
     janela.destroy()
     exit()
 
+
 def atualiza():
     janela.update()
- #   time.sleep(0.25)
+
+
+#   time.sleep(0.25)
+
+def getin():
+    global PESSOAS
+    PESSOAS = PESSOAS + 1
+
+
+#    global pessoas
+#    pessoas = pessoas + 1
+
+def goout():
+    global PESSOAS
+    PESSOAS = PESSOAS - 1
+    if PESSOAS < 0:
+        PESSOAS = 0
+
 
 janela = Tk()
 janela.geometry('900x700')
@@ -96,28 +121,40 @@ Button(frame, text='Iniciar', width=15, bg='purple4', fg='white', command=start)
 Button(frame, text='Pausar', width=15, bg='purple4', fg='white', command=pause).pack(pady=5, side='left', expand=1)
 Button(frame, text='Continuar', width=15, bg='purple4', fg='white', command=continuar).pack(pady=5, side='left',
                                                                                             expand=1)
+Button(frame, text='Entra Pessoa', width=15, bg='purple4', fg='white', command=getin).pack(pady=5, side='left',
+                                                                                           expand=1)
+Button(frame, text='Sai Pessoa', width=15, bg='purple4', fg='white', command=goout).pack(pady=5, side='left', expand=1)
 Button(frame, text='Sair', width=15, bg='purple4', fg='white', command=close).pack(pady=5, side='left', expand=1)
 
 conectar()
 
 i = 0
+pessoas = 0
+amostra = 0
+
 while True:
 
-    if(CONNECTED == True and PAUSE == False and START == True):
+    if (CONNECTED == True and PAUSE == False and START == True):
         msg = str(ARDUINO.readline())
         msg = msg[2:-5]
         msg_data = re.split(': |, ', msg)
-        print(msg_data)
+        # print(msg_data)
 
         umidade = float(msg_data[1])
-        pessoas = int(msg_data[3])
+        # pessoas = int(msg_data[3])
+        pessoas = PESSOAS
         temperatura = float(msg_data[5])
+        resposta = lfuzzy.gera_fuzzy(umidade, pessoas)
 
-        print(umidade, pessoas, temperatura)
+        if i == 0:
+            linha = (str(amostra) + ',' + str(pessoas) + ',' + str(umidade) + ',' + str(temperatura) + ',' + str(resposta))
+            print(linha)
+            dados.grava_dados_2(linha, NOME_ARQ)
+            amostra = amostra + 1
+        i = i + 1
+        if i == 5:
+            i = 0
 
         atualiza()
 
     atualiza()
-
-
-janela.mainloop()

@@ -14,6 +14,12 @@ def grava_dados(v_pessoas, v_umidade, v_temperatura,v_resposta, arq):
     type(saida)
     saida.to_csv("save/"+arq+".csv")
 
+def grava_dados_2(linha, arq):
+
+    arquivo = open('save/'+ arq + '.csv', 'a+')
+    arquivo.write(linha+'\n')
+    arquivo.close()
+
 def gera_grafico(arq):
     df = pd.read_csv(arq)
 
