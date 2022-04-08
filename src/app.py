@@ -149,12 +149,4 @@ while True:
         if i == 0:
             linha = (str(amostra) + ',' + str(pessoas) + ',' + str(umidade) + ',' + str(temperatura) + ',' + str(resposta))
             print(linha)
-            dados.grava_dados_2(linha, NOME_ARQ)
-            amostra = amostra + 1
-        i = i + 1
-        if i == 5:
-            i = 0
-
-        atualiza()
-
-    atualiza()
+            
