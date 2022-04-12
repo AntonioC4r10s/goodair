@@ -9,6 +9,7 @@ import random
 import re
 import serial
 import lfuzzy
+from Settings import THEME
 
 CONNECTED = False
 PAUSE = False
@@ -19,7 +20,7 @@ NOME_ARQ = "saida" + time.strftime('%Y_%m_%d_%H_%M_%S')
 print(NOME_ARQ)
 dados.grava_dados_2('entrada,pessoas,umidade,temperatura,resposta', NOME_ARQ)
 
-fig, axs = plt.subplots(2, 2, facecolor='#B0E0E6')
+fig, axs = plt.subplots(2, 2, facecolor=THEME[0])
 
 x = np.arange(0, 1, 1)
 axs[0, 0].set_title("Number of People")
@@ -145,8 +146,14 @@ while True:
         pessoas = PESSOAS
         temperatura = float(msg_data[5])
         resposta = lfuzzy.gera_fuzzy(umidade, pessoas)
+        janela.update()
 
-        if i == 0:
+        if i % 5 == 0:
             linha = (str(amostra) + ',' + str(pessoas) + ',' + str(umidade) + ',' + str(temperatura) + ',' + str(resposta))
             print(linha)
-            
+            dados.grava_dados_2(linha, NOME_ARQ)
+            amostra = amostra + 1
+
+        i = i + 1
+
+    janela.update()

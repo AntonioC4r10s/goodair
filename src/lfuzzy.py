@@ -49,5 +49,5 @@ def gera_fuzzy(valor_umidade, valor_pessoas):
     tip = fuzz.defuzz(x_umidificador, aggregated, 'centroid')
 #    tip_activation = fuzz.interp_membership(x_umidificador, aggregated, tip)  # for plot
 
-    print(tip)
+    #print(tip)
     return (tip)
