@@ -41,7 +41,7 @@ def gera_grafico(arq):
     axs[1, 1].set_title("Resposta fuzzy")
     axs[1, 1].legend()
 
-#    plt.show()
+    plt.show()
     return fig
 
-#gera_grafico("save/novo_contagem.csv")
+gera_grafico("save/saida2022_04_27_00_46_31.csv")
