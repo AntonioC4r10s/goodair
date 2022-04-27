@@ -44,4 +44,4 @@ def gera_grafico(arq):
 #    plt.show()
     return fig
 
-#gera_grafico("/home/antonio/PycharmProjects/goodair/src/save/saida13:26:35.csv")
+#gera_grafico("save/novo_contagem.csv")
