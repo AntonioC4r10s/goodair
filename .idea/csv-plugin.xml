@@ -31,20 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\save\novo.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\save\novo_contagem.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\src\save\saida2022_04_05_06_56_42.csv">
           <value>
             <Attribute>
@@ -60,13 +46,6 @@
           </value>
         </entry>
         <entry key="\src\save\saida2022_04_11_15_22_51.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\save\saida2022_04_27_00_43_37.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

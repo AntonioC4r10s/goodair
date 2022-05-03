@@ -44,4 +44,4 @@ def gera_grafico(arq):
     plt.show()
     return fig
 
-gera_grafico("save/saida2022_04_27_00_46_31.csv")
+gera_grafico("save-coleta/dia-2.csv")
