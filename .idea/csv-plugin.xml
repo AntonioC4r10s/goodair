@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\save\saida13_11_06.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\save\saida2022_04_05_06_56_42.csv">
           <value>
             <Attribute>
